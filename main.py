@@ -1,4 +1,5 @@
 from fastapi import FastAPI, APIRouter
+from fastapi.middleware.cors import CORSMiddleware
 import random
 from words import BRAINROT
 
@@ -39,6 +40,7 @@ for term, details in BRAINROT.items():
 @router.get("/don-pollo")
 async def don_pollo():
     return {
+        "donpollo": {
         "name": "Don Pollo",
         "title": "The Unspoken Sigma Chicken Overlord of Ohio",
         "backstory": (
@@ -59,14 +61,16 @@ async def don_pollo():
             "Rawdogging the skibidi grindset every day, cluck yeah!"
         ],
         "message": "Don Pollo isn't just a name. It's a lifestyle. Mog your way to the top with skibidi vibes and stay based."
+        }
     }
+    
 
 @app.get("/rizzlord")
 async def rizzlord():
     return {
     "rizzlord": {
     "definition": "The ultimate master of charisma and flirting, mogging everyone with unshakable confidence and skibidi-level charm.",
-    "example": "Bro walked into the party, said two words, and left with everyone’s attention—absolute rizzlord energy.",
+    "example": "Bro walked into the party, said two words, and left with everyone's attention—absolute rizzlord energy.",
     "backstory": (
         "The title of 'Rizzlord' is reserved for those who have maxed out their rizz stats. Legends say the first Rizzlord once rizzy'd up "
         "Livee Dunn in Ohio while simultaneously teaching Baby Gronk how to mog on the football field. The Rizzlord operates on a sigma grindset, "
@@ -82,3 +86,10 @@ async def rizzlord():
     }   
 
 app.include_router(router)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
